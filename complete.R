@@ -14,8 +14,7 @@ getfilename <- function(directory, i) {
   else
     if(flength == 2) fname <- paste(directory, "/", "0", fname, ".csv", sep="")
   else fname <- paste(directory, "/", fname, ".csv", sep="")
-  fname
-  
+  fname  
 }
 
 #**********************************
@@ -34,20 +33,30 @@ getfilename <- function(directory, i) {
 #
 complete <- function(directory, id=1:332) {
   
-  # Initialize the results list
+  # Initialize the results list  
+  completelist <- data.frame(1:length(id), 1:length(id))
+  colnames(completelist) <- c("id", "nobs")
   
   # Loop through each file and process
+  loopcount <- 0
   for (i in id) {
     
     # Read in the apropriate csv file
-    comp <- read.csv(getfilename(directory, id))
+    loopcount <- loopcount + 1
+    comp <- read.csv(getfilename(directory, id[loopcount]))
     
     # Get the set of complete cases in the file
-    
+    ccases <- 0
+    for(i in 1:nrow(comp)) {
+      if(!is.na(comp[i,2]) & !is.na(comp[i,3])) {
+        ccases<-ccases + 1
+      }  
+    }
     # Append 'id' and 'nobs' to the results list (rbind())
-    
+    completelist[loopcount, 1] <- id[loopcount]
+    completelist[loopcount, 2] <- ccases
   }
   
   # Return the results
-  
+  completelist
 }
