@@ -1,7 +1,7 @@
 #*************************************
 # Function: getfilename(directory, id)
 # Input:  directory - The name of a directory relative to the current working
-#    			directory.
+#  				directory.
 #       	id - The id number of a polution monitor that corresponds to the
 #					name of the file (i.e.: 1 => 001.csv, 13 => 013.csv, etc.).
 # output: 	A filename of the form 'path/nnn.csv', where 'path' is the relative
@@ -20,7 +20,7 @@ getfilename <- function(directory, i) {
 
 #**************************************************
 # Function: pollutantmean(directory, pollutant, id)
-# Input:    directory - A relative directory holding the files.
+# Input:  	directory - A relative directory holding the files.
 #         	pollutant - "sulfate" or "nitrate", refers to colums 2 and 3 in
 #					files.
 #         	id - The id number of a polution monitor that corresponds to the
@@ -55,52 +55,5 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
   # Return the mean (sum/count).  the sample output has 3 decimal places, 
   # so I'm following suit
   round(datasum/datacount, 3)
-  
-}
-
-#**********************************
-# Function: complete(directory, id)
-# Input:  	directory - A relative directory holding the files;
-#         	id - The id number of a polution monitor that corresponds to the
-#					name of the file (i.e.: 1 => 001.csv, 13 => 013.csv, etc.);
-#					default is all available IDs.
-# Output: 	Returns a data frame of the form:
-#				id nobs
-#				1  117
-#				2  1041
-#                ...
-#		 	where 'id' is the monitor ID number and 'nobs' is the number
-#         	of complete cases
-#
-complete <- function(directory, id=1:332) {
-  
-  # Initialize the results list
-  
-  # Loop through each file and process
-  for (i in id) {
-    
-    # Read in the apropriate csv file
-    comp <- read.csv(getfilename(directory, id))
-    
-    # Get the set of complete cases in the file
-    
-    # Append 'id' and 'nobs' to the results list (rbind())
-    
-  }
-  
-  # Return the results
-  
-}
-
-#*************************************
-# Function: corr(directory, threshold)
-# Input:  	directory - A relative directory holding the files;
-#         	threshold - A numeric vector of length 1 indicating the number of
-#		  			completely observed observations (on all variables) 
-#					required to compute the correlation between nitrate and
-#					sulfate; the default is 0
-# Output: 	A numeric vector of correlations
-#
-corr <- function(directory, threshold = 0) {
   
 }
